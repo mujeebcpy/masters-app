@@ -22,6 +22,7 @@
   "gst_state",
   "gst_status",
   "basic_information_section_2",
+  "is_mnre_empaneled",
   "mnre_reg_no",
   "location",
   "district",
@@ -85,8 +86,7 @@
    "fieldname": "gst",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "GST",
-   "reqd": 1
+   "label": "GST"
   },
   {
    "fieldname": "gst_details_section",
@@ -129,6 +129,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "eval:doc.is_mnre_empaneled == 1",
    "fieldname": "mnre_reg_no",
    "fieldtype": "Data",
    "label": "MNRE Reg No"
@@ -237,12 +238,18 @@
    "fieldtype": "Small Text",
    "label": "Review Notes",
    "permlevel": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_mnre_empaneled",
+   "fieldtype": "Check",
+   "label": "Is MNERE Empaneled"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-24 13:25:35.250077",
+ "modified": "2026-09-24 18:11:30.687311",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",
