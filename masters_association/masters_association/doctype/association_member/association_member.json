@@ -14,6 +14,13 @@
   "address",
   "mobile_no_whatsapp",
   "gst",
+  "gst_details_section",
+  "gst_company_name",
+  "gst_address",
+  "gst_pincode",
+  "gst_state",
+  "gst_status",
+  "basic_information_section_2",
   "mnre_reg_no",
   "location",
   "district",
@@ -79,6 +86,46 @@
    "in_list_view": 1,
    "label": "GST",
    "reqd": 1
+  },
+  {
+   "fieldname": "gst_details_section",
+   "fieldtype": "Section Break",
+   "label": "GST Details (Auto-fetched)"
+  },
+  {
+   "description": "Auto-fetched from GST records based on the GSTIN provided above.",
+   "fieldname": "gst_company_name",
+   "fieldtype": "Data",
+   "label": "GST Registered Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gst_address",
+   "fieldtype": "Small Text",
+   "label": "GST Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gst_pincode",
+   "fieldtype": "Data",
+   "label": "GST Pincode",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gst_state",
+   "fieldtype": "Data",
+   "label": "GST State",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gst_status",
+   "fieldtype": "Data",
+   "label": "GST Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "basic_information_section_2",
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "mnre_reg_no",

@@ -11,12 +11,18 @@ fixtures = [
         "filters": [
             ["name", "in", ["Membership Reviewer"]]
         ],
-    }
+    },
+    {
+        "dt": "Workflow",
+        "filters": [
+            ["name", "in", ["Association Member Approval"]]
+        ],
+    },
 ]
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["india_compliance"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
