@@ -1,0 +1,258 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "Masters-.####",
+ "creation": "2026-09-24 13:25:35.250077",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_information_section",
+  "name1",
+  "company",
+  "email",
+  "address",
+  "mobile_no_whatsapp",
+  "gst",
+  "mnre_reg_no",
+  "location",
+  "district",
+  "year_of_empanelment",
+  "masters_member_sinceapproximate_date_of_payment",
+  "payment_details_section",
+  "copy_of_transaction_receipt",
+  "utr__transaction_reference",
+  "company_bank_acc_no",
+  "ifsc_code",
+  "statistics_section",
+  "total_mnre_projects_done_till_date",
+  "total_capacity_done_till_this_date",
+  "otal_number_of_hybrid",
+  "total_storage_capacity_of_hybrid",
+  "internal_review_section",
+  "application_status",
+  "payment_verified",
+  "bank_statement_reference",
+  "review_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_information_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Information"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "mobile_no_whatsapp",
+   "fieldtype": "Phone",
+   "in_list_view": 1,
+   "label": "Mobile No (Whatsapp)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "gst",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "GST",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mnre_reg_no",
+   "fieldtype": "Data",
+   "label": "MNRE Reg No"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Geolocation",
+   "label": "Location"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Select",
+   "label": "District",
+   "options": "Thiruvananthapuram\nKollam\nPathanamthitta\nAlappuzha\nKottayam\nIdukki\nErnakulam\nThrissur\nPalakkad\nMalappuram\nKozhikode\nWayanad\nKannur\nKasaragod",
+   "reqd": 1
+  },
+  {
+   "fieldname": "year_of_empanelment",
+   "fieldtype": "Date",
+   "label": "Year of empanelment"
+  },
+  {
+   "fieldname": "masters_member_sinceapproximate_date_of_payment",
+   "fieldtype": "Date",
+   "label": "Masters Member since(Approximate date of payment)"
+  },
+  {
+   "fieldname": "payment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "copy_of_transaction_receipt",
+   "fieldtype": "Attach",
+   "label": "Copy of Transaction receipt"
+  },
+  {
+   "fieldname": "utr__transaction_reference",
+   "fieldtype": "Data",
+   "label": "UTR / Transaction Reference"
+  },
+  {
+   "fieldname": "company_bank_acc_no",
+   "fieldtype": "Data",
+   "label": "Company Bank Acc No"
+  },
+  {
+   "fieldname": "ifsc_code",
+   "fieldtype": "Data",
+   "label": "IFSC Code"
+  },
+  {
+   "fieldname": "statistics_section",
+   "fieldtype": "Section Break",
+   "label": "Statistics"
+  },
+  {
+   "fieldname": "total_mnre_projects_done_till_date",
+   "fieldtype": "Int",
+   "label": "Total MNRE projects done till date"
+  },
+  {
+   "fieldname": "total_capacity_done_till_this_date",
+   "fieldtype": "Int",
+   "label": "Total capacity done till this date"
+  },
+  {
+   "fieldname": "otal_number_of_hybrid",
+   "fieldtype": "Int",
+   "label": "otal Number of Hybrid"
+  },
+  {
+   "fieldname": "total_storage_capacity_of_hybrid",
+   "fieldtype": "Int",
+   "label": " Total Storage Capacity of Hybrid"
+  },
+  {
+   "fieldname": "internal_review_section",
+   "fieldtype": "Section Break",
+   "label": "Internal Review"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "application_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Application Status",
+   "options": "Pending\nApproved\nRejected",
+   "permlevel": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "payment_verified",
+   "fieldtype": "Check",
+   "label": "Payment Verified",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "bank_statement_reference",
+   "fieldtype": "Data",
+   "label": "Bank Statement Reference",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "review_notes",
+   "fieldtype": "Small Text",
+   "label": "Review Notes",
+   "permlevel": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-09-24 13:25:35.250077",
+ "modified_by": "Administrator",
+ "module": "Masters Association",
+ "name": "Association Member",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Membership Reviewer",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Membership Reviewer",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "company"
+}

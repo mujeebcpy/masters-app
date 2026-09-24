@@ -5,6 +5,14 @@ app_description = "Membership Management app"
 app_email = "mujeebrahman@wahni.com"
 app_license = "mit"
 
+fixtures = [
+    {
+        "dt": "Role",
+        "filters": [
+            ["name", "in", ["Membership Reviewer"]]
+        ],
+    }
+]
 # Apps
 # ------------------
 
