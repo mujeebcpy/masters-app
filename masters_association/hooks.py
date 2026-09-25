@@ -18,6 +18,12 @@ fixtures = [
             ["name", "in", ["Association Member Approval"]]
         ],
     },
+    {
+        "dt": "List View Settings",
+        "filters": [
+            ["name", "in", ["Association Member"]]
+        ],
+    },
 ]
 # Apps
 # ------------------

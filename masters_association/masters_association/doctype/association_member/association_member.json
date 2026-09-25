@@ -10,9 +10,7 @@
  "field_order": [
   "basic_information_section",
   "name1",
-  "company",
   "email",
-  "address",
   "mobile_no_whatsapp",
   "gst",
   "gst_details_section",
@@ -25,6 +23,7 @@
   "is_mnre_empaneled",
   "mnre_reg_no",
   "location",
+  "google_maps_link",
   "district",
   "year_of_empanelment",
   "masters_member_sinceapproximate_date_of_payment",
@@ -39,6 +38,7 @@
   "otal_number_of_hybrid",
   "total_storage_capacity_of_hybrid",
   "internal_review_section",
+  "submitted_via_web_form",
   "application_status",
   "payment_verified",
   "bank_statement_reference",
@@ -58,22 +58,10 @@
    "reqd": 1
   },
   {
-   "fieldname": "company",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Company",
-   "reqd": 1
-  },
-  {
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email",
    "options": "Email"
-  },
-  {
-   "fieldname": "address",
-   "fieldtype": "Text",
-   "label": "Address"
   },
   {
    "default": "+91-",
@@ -81,13 +69,15 @@
    "fieldtype": "Phone",
    "in_list_view": 1,
    "label": "Mobile No (Whatsapp)",
+   "options": "+91-",
    "reqd": 1
   },
   {
    "fieldname": "gst",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "GST"
+   "label": "GST",
+   "reqd": 1
   },
   {
    "fieldname": "gst_details_section",
@@ -139,6 +129,12 @@
    "fieldname": "location",
    "fieldtype": "Geolocation",
    "label": "Location"
+  },
+  {
+   "fieldname": "google_maps_link",
+   "fieldtype": "Data",
+   "label": "Google Maps Link",
+   "options": "URL"
   },
   {
    "fieldname": "district",
@@ -213,6 +209,14 @@
    "label": "Internal Review"
   },
   {
+   "default": "0",
+   "description": "Automatically set when this application was submitted through the public Members Registration web form. Left unchecked for records created directly in the desk or via Data Import.",
+   "fieldname": "submitted_via_web_form",
+   "fieldtype": "Check",
+   "label": "Submitted via Web Form",
+   "read_only": 1
+  },
+  {
    "default": "Pending",
    "fieldname": "application_status",
    "fieldtype": "Select",
@@ -250,7 +254,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-24 18:39:46.642581",
+ "modified": "2026-09-25 23:31:14.874489",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",
@@ -312,5 +316,5 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "company"
+ "title_field": "name1"
 }

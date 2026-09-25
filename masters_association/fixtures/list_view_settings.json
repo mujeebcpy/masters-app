@@ -1,0 +1,17 @@
+[
+ {
+  "allow_edit": 1,
+  "disable_auto_refresh": 0,
+  "disable_automatic_recency_filters": 0,
+  "disable_comment_count": 0,
+  "disable_count": 0,
+  "disable_scrolling": 0,
+  "disable_sidebar_stats": 0,
+  "docstatus": 0,
+  "doctype": "List View Settings",
+  "fields": null,
+  "modified": "2026-09-25 23:04:03.759279",
+  "name": "Association Member",
+  "show_tags": 0
+ }
+]
