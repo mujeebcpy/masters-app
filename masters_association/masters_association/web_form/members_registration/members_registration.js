@@ -2,6 +2,37 @@ frappe.ready(function() {
 	// Basic format for a regular PAN-based GSTIN.
 	const gstin_pattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
 
+	function ensure_mobile_country_code() {
+		const field = frappe.web_form.get_field("mobile_no_whatsapp");
+		const value = (frappe.web_form.get_value("mobile_no_whatsapp") || "").trim();
+
+		// Leave empty numbers to mandatory validation and preserve international numbers.
+		if (!value || /^\+\d/.test(value)) return true;
+
+		if (
+			field?.country_codes &&
+			field.country_code_picker &&
+			field.selected_icon?.length &&
+			field.$isd?.length &&
+			field.$input?.length
+		) {
+			const country_code = field.$isd.text().trim() || "+91";
+			// Web Form validate is synchronous; set_value would finish after submission.
+			field.set_input(`${country_code}-${value}`);
+		}
+
+		if (/^\+\d/.test(frappe.web_form.get_value("mobile_no_whatsapp") || "")) {
+			return true;
+		}
+
+		frappe.msgprint({
+			title: __("Country Code Required"),
+			message: __("Please select country code for Mobile Number"),
+			indicator: "red"
+		});
+		return false;
+	}
+
 	function clear_gst_details() {
 		frappe.web_form.set_value("gst_company_name", "");
 		frappe.web_form.set_value("gst_address", "");
@@ -46,6 +77,8 @@ frappe.ready(function() {
 	});
 
 	frappe.web_form.validate = () => {
+		if (!ensure_mobile_country_code()) return false;
+
 		const gstin = (frappe.web_form.get_value("gst") || "")
 			.trim()
 			.toUpperCase();

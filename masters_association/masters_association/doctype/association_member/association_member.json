@@ -66,12 +66,10 @@
    "options": "Email"
   },
   {
-   "default": "+91-",
    "fieldname": "mobile_no_whatsapp",
    "fieldtype": "Phone",
    "in_list_view": 1,
    "label": "Mobile No (Whatsapp)",
-   "options": "+91-",
    "reqd": 1
   },
   {
@@ -269,7 +267,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-26 13:03:22.470208",
+ "modified": "2026-09-26 20:06:59.854032",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",
