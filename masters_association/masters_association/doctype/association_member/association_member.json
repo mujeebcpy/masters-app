@@ -12,7 +12,7 @@
   "name1",
   "email",
   "mobile_no_whatsapp",
-  "are_you_master_member",
+  "membership_status",
   "gst",
   "gst_details_section",
   "gst_company_name",
@@ -248,13 +248,6 @@
    "label": "Is MNERE Empaneled"
   },
   {
-   "fieldname": "are_you_master_member",
-   "fieldtype": "Select",
-   "label": "Membership Status",
-   "options": "Normal Member\nLifetime Member\nNot A Member",
-   "reqd": 1
-  },
-  {
    "fieldname": "total_number_of_hybrid",
    "fieldtype": "Int",
    "label": "Total Number of Hybrid"
@@ -263,12 +256,19 @@
    "fieldname": "mnre_empanelled_name",
    "fieldtype": "Data",
    "label": "MNRE Empanelled Name"
+  },
+  {
+   "fieldname": "membership_status",
+   "fieldtype": "Select",
+   "label": "Membership Status",
+   "options": "Normal Member\nLifetime Member\nNot A Member",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-26 10:26:03.675375",
+ "modified": "2026-09-26 10:35:56.622283",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",
