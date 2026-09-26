@@ -12,6 +12,7 @@
   "name1",
   "email",
   "mobile_no_whatsapp",
+  "are_you_master_member",
   "gst",
   "gst_details_section",
   "gst_company_name",
@@ -22,6 +23,7 @@
   "basic_information_section_2",
   "is_mnre_empaneled",
   "mnre_reg_no",
+  "mnre_empanelled_name",
   "location",
   "google_maps_link",
   "district",
@@ -35,7 +37,7 @@
   "statistics_section",
   "total_mnre_projects_done_till_date",
   "total_capacity_done_till_this_date",
-  "otal_number_of_hybrid",
+  "total_number_of_hybrid",
   "total_storage_capacity_of_hybrid",
   "internal_review_section",
   "submitted_via_web_form",
@@ -194,11 +196,6 @@
    "label": "Total capacity done till this date"
   },
   {
-   "fieldname": "otal_number_of_hybrid",
-   "fieldtype": "Int",
-   "label": "otal Number of Hybrid"
-  },
-  {
    "fieldname": "total_storage_capacity_of_hybrid",
    "fieldtype": "Int",
    "label": " Total Storage Capacity of Hybrid"
@@ -249,12 +246,29 @@
    "fieldname": "is_mnre_empaneled",
    "fieldtype": "Check",
    "label": "Is MNERE Empaneled"
+  },
+  {
+   "fieldname": "are_you_master_member",
+   "fieldtype": "Select",
+   "label": "Are You Master Member",
+   "options": "Normal Member\nLifetime Member\nNot A Member",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_number_of_hybrid",
+   "fieldtype": "Int",
+   "label": "Total Number of Hybrid"
+  },
+  {
+   "fieldname": "mnre_empanelled_name",
+   "fieldtype": "Data",
+   "label": "MNRE Empanelled Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-25 23:31:14.874489",
+ "modified": "2026-09-26 09:27:46.950192",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",
