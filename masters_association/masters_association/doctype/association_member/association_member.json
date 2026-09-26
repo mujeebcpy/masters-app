@@ -250,7 +250,7 @@
   {
    "fieldname": "are_you_master_member",
    "fieldtype": "Select",
-   "label": "Are You Master Member",
+   "label": "Membership Status",
    "options": "Normal Member\nLifetime Member\nNot A Member",
    "reqd": 1
   },
@@ -268,7 +268,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-26 09:27:46.950192",
+ "modified": "2026-09-26 10:26:03.675375",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",
