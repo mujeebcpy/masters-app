@@ -8,6 +8,8 @@ from frappe import _
 from frappe.rate_limiter import rate_limit
 from frappe.utils import getdate, today
 
+from masters_association.geo import point_from_geojson
+
 REGISTRATION_WEB_FORM = "members-registration"
 MAX_PHOTO_SIZE = 5 * 1024 * 1024
 COMMITTEES = ("State Secretariat", "State Executive", "District Coordinator")
@@ -112,7 +114,44 @@ def get_members():
 		"committees": _get_committees(_get_position_holders()),
 		"lifetime": [_member_card(m) for m in members if m.membership_status == "Lifetime Member"],
 		"ordinary": [_member_card(m) for m in members if m.membership_status == "Normal Member"],
+		"locations": _get_member_locations(),
 	}
+
+
+def _get_member_locations():
+	member = frappe.qb.DocType("Association Member")
+	rows = (
+		frappe.qb.from_(member)
+		.select(
+			member.name,
+			member.name1,
+			member.gst_company_name,
+			member.mnre_empanelled_name,
+			member.district,
+			member.location,
+			member.google_maps_link,
+		)
+		.where(_public_member_condition(member))
+		.where(member.location.isnotnull())
+		.orderby(member.name1)
+		.run(as_dict=True)
+	)
+
+	locations = []
+	for row in rows:
+		if point := point_from_geojson(row.location):
+			locations.append(
+				{
+					"id": row.name,
+					"name": row.name1,
+					"company": row.gst_company_name or row.mnre_empanelled_name,
+					"district": row.district,
+					"lat": point[0],
+					"lng": point[1],
+					"maps_link": row.google_maps_link,
+				}
+			)
+	return locations
 
 
 @frappe.whitelist(allow_guest=True)

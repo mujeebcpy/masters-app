@@ -11,3 +11,14 @@ class AssociationMember(Document):
 		# handler is creating the document, so this stays unchecked for
 		# records created from the desk, Data Import, or the API directly.
 		self.submitted_via_web_form = 1 if frappe.flags.in_web_form else 0
+
+	def on_update(self):
+		# Resolving the link can take a few network round trips, so keep it off the save
+		if self.has_value_changed("google_maps_link") and (self.google_maps_link or self.location):
+			frappe.enqueue(
+				"masters_association.geo.update_member_location",
+				member=self.name,
+				enqueue_after_commit=True,
+				deduplicate=True,
+				job_id=f"member_location::{self.name}",
+			)

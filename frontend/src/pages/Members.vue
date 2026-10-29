@@ -7,6 +7,8 @@ import PageHero from "@/components/PageHero.vue"
 import MemberCard from "@/components/MemberCard.vue"
 import MemberDialog from "@/components/MemberDialog.vue"
 import EmptyState from "@/components/EmptyState.vue"
+import SectionHeading from "@/components/SectionHeading.vue"
+import MemberMap from "@/components/MemberMap.vue"
 
 const committeeTitles = {
 	"State Secretariat": "State Secretariat members",
@@ -144,6 +146,17 @@ const directory = computed(() => (members.data?.[tab.value] || []).filter(matche
 				:description="query || district ? 'Try a different search or district.' : 'Approved members will appear here.'"
 			/>
 		</template>
+	</section>
+
+	<section v-if="members.data?.locations?.length" class="border-t border-outline-gray-1 bg-surface-gray-1 py-14 sm:py-16">
+		<div class="container-page">
+			<SectionHeading
+				eyebrow="Find a member"
+				title="Members across Kerala"
+				description="Approved Masters members on the map. Select a pin for details and directions."
+			/>
+			<MemberMap class="mt-8" :locations="members.data.locations" />
+		</div>
 	</section>
 
 	<MemberDialog :member="selectedMember" @close="selectedMember = null" />
