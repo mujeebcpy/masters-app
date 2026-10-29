@@ -140,6 +140,7 @@
    "label": "Location"
   },
   {
+   "description": "In Google Maps, open your business, tap Share and choose Copy link (https://maps.app.goo.gl/…). Links shared from Google Search (share.google/…) don't include a location.",
    "fieldname": "google_maps_link",
    "fieldtype": "Data",
    "label": "Google Maps Link",
@@ -321,7 +322,7 @@
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-29 12:00:00.000000",
+ "modified": "2026-10-29 21:30:00.000000",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",

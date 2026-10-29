@@ -23,7 +23,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2026-10-29 12:00:00.000000",
+ "modified": "2026-10-29 21:30:00.000000",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "members-registration",
@@ -236,6 +236,7 @@
    "show_in_filter": 0
   },
   {
+   "description": "In Google Maps, open your business, tap Share and choose Copy link (https://maps.app.goo.gl/…). Links shared from Google Search (share.google/…) don't include a location.",
    "allow_read_on_all_link_options": 0,
    "fieldname": "google_maps_link",
    "fieldtype": "Data",

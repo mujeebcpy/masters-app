@@ -9,6 +9,8 @@ import PageHero from "@/components/PageHero.vue"
 // register_member), so its field rules, mandatory checks and Association Member hooks all apply.
 const WEB_FORM = "members-registration"
 const GSTIN_PATTERN = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/
+// Google Search share links carry only a business name, never a location
+const SEARCH_SHARE_LINK = /^(https?:\/\/)?(www\.)?(share\.google|g\.co)\//i
 
 const membershipLabels = {
 	"Normal Member": "Ordinary member",
@@ -96,6 +98,9 @@ function validate() {
 	if (!GSTIN_PATTERN.test(form.gst))
 		e.gst = "Enter a 15-character GSTIN: two state-code digits, your 10-character PAN, an entity code, Z and a check character."
 	if (!form.district) e.district = "Please choose your district."
+	if (SEARCH_SHARE_LINK.test(form.google_maps_link.trim()))
+		e.google_maps_link =
+			"This is a Google Search link, which doesn't include your location. In Google Maps, open your business, tap Share and choose Copy link."
 	errors.value = e
 	return !Object.keys(e).length
 }
@@ -370,6 +375,8 @@ async function submit() {
 							size="lg"
 							variant="outline"
 							placeholder="https://maps.app.goo.gl/…"
+							description="In Google Maps, open your business, tap Share and choose Copy link. Links shared from Google Search (share.google/…) don't include a location."
+							:error="errors.google_maps_link"
 						/>
 					</div>
 				</fieldset>
