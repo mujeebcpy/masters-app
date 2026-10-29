@@ -43,3 +43,14 @@ def fetch_gst_details(gstin: str):
 		"gst_state": address.get("state"),
 		"gst_status": gstin_info.get("status"),
 	}
+
+
+def has_app_permission():
+	"""Show the Masters app on /desk to users who can manage members or website content."""
+	if frappe.session.user == "Administrator":
+		return True
+
+	return any(
+		frappe.has_permission(doctype, ptype="read")
+		for doctype in ("Association Member", "Website Enquiry", "Gallery Item")
+	)

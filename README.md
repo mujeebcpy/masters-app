@@ -12,6 +12,30 @@ bench get-app $URL_OF_THIS_REPO --branch version-16
 bench install-app masters_association
 ```
 
+### Public website
+
+The site's public pages (`/`, `/about`, `/members`, `/gallery`, `/become-members`, …) are a Vue 3 +
+[frappe-ui](https://ui.frappe.io) app in `frontend/`, served through `masters_association/www/masters.html`.
+Its data comes from the guest APIs in `masters_association/website.py`.
+
+```bash
+# production build (bench build runs this too)
+cd apps/masters_association/frontend && yarn install && yarn build
+
+# live-reloading dev server, proxied to the bench
+cd apps/masters_association/frontend && yarn dev
+```
+
+Content is managed from the desk: open **Masters** on `/desk` (or go to `/desk/masters`).
+
+- **Association Member**: approved members with *Show on Website* appear on `/members`. Add rows in
+  *Association Positions* for committee roles (committee, position, term); tick *Show in Home Page Team*
+  to feature someone on the home page.
+- **Gallery Item**: photos and YouTube videos for `/gallery`; *Show on Home Page* adds a photo to the
+  home page glimpses.
+- **Association Event** and **Association Document**: `/events` and `/documents`.
+- **Website Enquiry**: messages from the contact and grievance forms.
+
 ### Contributing
 
 This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:

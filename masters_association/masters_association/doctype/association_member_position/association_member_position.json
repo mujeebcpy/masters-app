@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "creation": "2026-10-29 12:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "committee",
+  "position",
+  "term",
+  "display_order",
+  "show_on_home_page"
+ ],
+ "fields": [
+  {
+   "fieldname": "committee",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Committee",
+   "options": "State Secretariat\nState Executive\nDistrict Coordinator",
+   "reqd": 1
+  },
+  {
+   "description": "e.g. State President, State Treasurer, District Coordinator",
+   "fieldname": "position",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Position",
+   "reqd": 1
+  },
+  {
+   "description": "e.g. 2026 to 2027. The website shows the latest term of each committee.",
+   "fieldname": "term",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Term",
+   "reqd": 1
+  },
+  {
+   "description": "Lower numbers are shown first.",
+   "fieldname": "display_order",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Display Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_on_home_page",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Show in Home Page Team"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-10-29 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Masters Association",
+ "name": "Association Member Position",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

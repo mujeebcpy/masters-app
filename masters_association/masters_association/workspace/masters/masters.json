@@ -1,0 +1,195 @@
+{
+ "charts": [],
+ "content": "[{\"id\": \"hdrMembers\", \"type\": \"header\", \"data\": {\"text\": \"\\u003cspan class=\\\"h4\\\"\\u003e\\u003cb\\u003eMasters\\u003c/b\\u003e\\u003c/span\\u003e\", \"col\": 12}}, {\"id\": \"sc00\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Association Member\", \"col\": 4}}, {\"id\": \"sc01\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Website Enquiry\", \"col\": 4}}, {\"id\": \"sc02\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Gallery Item\", \"col\": 4}}, {\"id\": \"sc03\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Association Event\", \"col\": 4}}, {\"id\": \"sc04\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Association Document\", \"col\": 4}}, {\"id\": \"sc05\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"View Website\", \"col\": 4}}, {\"id\": \"spc01\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"card00\", \"type\": \"card\", \"data\": {\"card_name\": \"Membership\", \"col\": 6}}, {\"id\": \"card01\", \"type\": \"card\", \"data\": {\"card_name\": \"Website Content\", \"col\": 6}}, {\"id\": \"card02\", \"type\": \"card\", \"data\": {\"card_name\": \"Enquiries\", \"col\": 6}}, {\"id\": \"card03\", \"type\": \"card\", \"data\": {\"card_name\": \"Website Settings\", \"col\": 6}}]",
+ "creation": "2026-10-29 17:00:31.040322",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "users",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Masters",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Membership",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Association Member",
+   "link_count": 0,
+   "link_to": "Association Member",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Web Form",
+   "link_count": 0,
+   "link_to": "Web Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Website Content",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Gallery Item",
+   "link_count": 0,
+   "link_to": "Gallery Item",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Association Event",
+   "link_count": 0,
+   "link_to": "Association Event",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Association Document",
+   "link_count": 0,
+   "link_to": "Association Document",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Enquiries",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Website Enquiry",
+   "link_count": 0,
+   "link_to": "Website Enquiry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Website Settings",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Website Settings",
+   "link_count": 0,
+   "link_to": "Website Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Website Script",
+   "link_count": 0,
+   "link_to": "Website Script",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-10-29 17:00:39.509619",
+ "modified_by": "Administrator",
+ "module": "Masters Association",
+ "name": "Masters",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 0.0,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Association Member",
+   "link_to": "Association Member",
+   "stats_filter": "{\"application_status\":\"Pending\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Website Enquiry",
+   "link_to": "Website Enquiry",
+   "stats_filter": "{\"status\":\"Open\"}",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "List",
+   "label": "Gallery Item",
+   "link_to": "Gallery Item",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Association Event",
+   "link_to": "Association Event",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Association Document",
+   "link_to": "Association Document",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "label": "View Website",
+   "type": "URL",
+   "url": "/"
+  }
+ ],
+ "standard": 1,
+ "title": "Masters",
+ "type": "Workspace"
+}

@@ -23,7 +23,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2026-09-26 20:06:12.694689",
+ "modified": "2026-10-29 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "members-registration",
@@ -101,6 +101,32 @@
    "precision": "",
    "read_only": 0,
    "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "hidden": 0,
+   "label": "Designation",
+   "max_length": 0,
+   "max_value": 0,
+   "precision": "",
+   "read_only": 0,
+   "reqd": 0,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "hidden": 0,
+   "label": "Photo",
+   "max_length": 0,
+   "max_value": 0,
+   "precision": "",
+   "read_only": 0,
+   "reqd": 0,
    "show_in_filter": 0
   },
   {

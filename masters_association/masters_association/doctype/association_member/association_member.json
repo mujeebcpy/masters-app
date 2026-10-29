@@ -13,6 +13,9 @@
   "email",
   "mobile_no_whatsapp",
   "membership_status",
+  "designation",
+  "column_break_photo",
+  "photo",
   "gst",
   "gst_details_section",
   "gst_company_name",
@@ -39,6 +42,11 @@
   "total_capacity_done_till_this_date",
   "total_number_of_hybrid",
   "total_storage_capacity_of_hybrid",
+  "association_positions_section",
+  "positions",
+  "website_section",
+  "show_on_website",
+  "show_contact_on_website",
   "internal_review_section",
   "submitted_via_web_form",
   "application_status",
@@ -262,12 +270,58 @@
    "label": "Membership Status",
    "options": "Normal Member\nLifetime Member\nNot A Member",
    "reqd": 1
+  },
+  {
+   "description": "Role in the company, e.g. Managing Director. Shown on the website.",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fieldname": "column_break_photo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "label": "Photo"
+  },
+  {
+   "fieldname": "association_positions_section",
+   "fieldtype": "Section Break",
+   "label": "Association Positions"
+  },
+  {
+   "description": "Committee positions held in the association, e.g. State President in the State Secretariat for 2026 to 2027.",
+   "fieldname": "positions",
+   "fieldtype": "Table",
+   "label": "Positions",
+   "options": "Association Member Position"
+  },
+  {
+   "fieldname": "website_section",
+   "fieldtype": "Section Break",
+   "label": "Website"
+  },
+  {
+   "default": "1",
+   "description": "Approved members are listed on the public Members page when this is checked.",
+   "fieldname": "show_on_website",
+   "fieldtype": "Check",
+   "label": "Show on Website"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_contact_on_website",
+   "fieldtype": "Check",
+   "label": "Show Email and Phone on Website"
   }
  ],
  "grid_page_length": 50,
+ "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-26 20:06:59.854032",
+ "modified": "2026-10-29 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",

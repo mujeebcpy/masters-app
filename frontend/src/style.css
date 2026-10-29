@@ -1,0 +1,34 @@
+@import "frappe-ui/style.css";
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+	body {
+		@apply bg-surface-base text-ink-gray-8 antialiased;
+	}
+	h1,
+	h2,
+	h3 {
+		@apply font-display;
+	}
+}
+
+@layer components {
+	.container-page {
+		@apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+	}
+	.eyebrow {
+		@apply inline-flex items-center gap-2 text-sm-semibold uppercase tracking-[0.14em] text-brand-600;
+	}
+	.eyebrow::before {
+		content: "";
+		@apply h-0.5 w-6 rounded-full bg-gradient-to-r from-lime to-teal-brand;
+	}
+	.card {
+		@apply rounded-7 border border-outline-gray-1 bg-surface-base;
+	}
+	.text-gradient {
+		@apply bg-gradient-to-r from-lime via-brand-400 to-teal-brand bg-clip-text text-transparent;
+	}
+}

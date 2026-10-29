@@ -31,15 +31,15 @@ fixtures = [
 required_apps = ["india_compliance"]
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "masters_association",
-# 		"logo": "/assets/masters_association/logo.png",
-# 		"title": "Masters Association",
-# 		"route": "/masters_association",
-# 		"has_permission": "masters_association.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "masters_association",
+		"logo": "/assets/masters_association/images/logo/mark-square.png",
+		"title": "Masters",
+		"route": "/desk/masters",
+		"has_permission": "masters_association.api.has_app_permission",
+	}
+]
 
 # Includes in <head>
 # ------------------
@@ -77,7 +77,30 @@ required_apps = ["india_compliance"]
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "masters"
+
+# Public website pages rendered by the Vue app in /frontend (served from www/masters.html)
+website_route_rules = [
+	{"from_route": f"/{route}", "to_route": "masters"}
+	for route in (
+		"about",
+		"become-members",
+		"members",
+		"gallery",
+		"photo-gallery",
+		"video-gallery",
+		"events",
+		"documents",
+		"grievance",
+		"contact",
+	)
+]
+
+website_redirects = [
+	{"source": "/index", "target": "/"},
+	{"source": "/event", "target": "/events"},
+	{"source": "/members-registration", "target": "/become-members"},
+]
 
 # website user home page (by Role)
 # role_home_page = {
