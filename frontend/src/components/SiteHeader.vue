@@ -11,6 +11,7 @@ const mobileOpen = ref(false)
 const { session, logoutRequest, logout } = useMemberSession()
 const accountOptions = computed(() => [
 	{ label: "My profile", route: "/member/profile", icon: "lucide-user" },
+	...(session.data?.solar_access ? [{ label: "Solar monitor", route: "/solar", icon: "lucide-sun" }] : []),
 	{ label: "Account settings", route: "/member/account", icon: "lucide-settings" },
 	{ label: "Log out", icon: "lucide-log-out", onClick: logout, disabled: logoutRequest.loading },
 ])
@@ -65,10 +66,20 @@ function menuOptions(item) {
 
 			<div class="flex items-center gap-2">
 				<Dropdown v-if="session.data?.is_logged_in" :options="accountOptions" align="end">
-					<Button variant="ghost" size="md" aria-label="Member account" :loading="logoutRequest.loading">
-						<Avatar :label="session.data.display_name || session.data.user" :image="session.data.photo" size="sm" />
+					<Button
+						variant="ghost"
+						size="md"
+						class="gap-1.5 rounded-full pl-1 pr-2"
+						aria-label="Member account"
+						:loading="logoutRequest.loading"
+					>
+						<template #prefix>
+							<Avatar :label="session.data.display_name || session.data.user" :image="session.data.photo" size="sm" />
+						</template>
 						<span class="hidden sm:inline">My account</span>
-						<span class="lucide-chevron-down size-3.5" aria-hidden="true" />
+						<template #suffix>
+							<span class="lucide-chevron-down size-3.5 text-ink-gray-5" aria-hidden="true" />
+						</template>
 					</Button>
 				</Dropdown>
 				<Button v-else-if="session.isFinished && !session.loading" label="Member login" variant="ghost" size="md" @click="login" />

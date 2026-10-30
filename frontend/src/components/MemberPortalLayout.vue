@@ -38,6 +38,7 @@ onMounted(() => {
 			</div>
 			<nav v-if="session.data?.has_member_access" class="flex gap-2" aria-label="Member settings">
 				<Button :route="{ path: '/member/profile' }" label="Profile" :variant="route.path === '/member/profile' ? 'solid' : 'subtle'" />
+				<Button v-if="session.data.solar_access" :route="{ path: '/solar' }" label="Solar" variant="subtle" />
 				<Button :route="{ path: '/member/account' }" label="Account" :variant="route.path === '/member/account' ? 'solid' : 'subtle'" />
 			</nav>
 		</div>

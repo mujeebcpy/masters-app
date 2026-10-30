@@ -1,9 +1,9 @@
-# Member portal and future Solar Monitor
+# Member portal and Solar Monitor
 
-This document records the account boundary implemented in Masters Association and the requirements
-for a later Solar Monitor migration from `wahni_solar`. Solar provider connections, monitoring pages,
-cross-member solar roles, automatic polling and public solar statistics are **future work**. The member
-portal does not add solar cards to the homepage or call provider APIs.
+This document records the account boundary implemented in Masters Association and the Solar Monitor
+ownership model migrated from `wahni_solar`. Member-owned provider connections, the `/solar` monitoring
+pages and the read-only global viewer role are implemented. Automatic polling, a solar manager role and
+public solar statistics remain **future work**; the homepage shows no solar cards and never calls providers.
 
 ## Current account and permission model
 
@@ -16,7 +16,7 @@ business identity when the login email changes.
 | --- | --- | --- |
 | Association Member | Website User; edit own eligible member profile through the portal | Implemented |
 | Masters Manager | System User; manage Masters members, approval, website content and new-account invitations | Implemented |
-| Solar Monitor Global Viewer | Read all members' monitoring data; no credential changes or management | Future, explicitly assigned |
+| Solar Monitor Viewer | Desk role; read all members' monitoring data at `/solar` and in Desk lists; no credential changes, refreshes or management | Implemented, explicitly assigned |
 | Solar Monitor Manager | Manage all members' monitoring accounts, ownership, refreshes and settings | Future, explicitly assigned |
 | System Manager / Administrator | Site administration, role assignment and explicit existing-User linkage | Frappe administration |
 
@@ -27,9 +27,10 @@ additional roles and normal Frappe document/user permissions still apply. A Syst
 administration rights. An unchecked whitelisted method, SQL query or `get_all` in another app still needs
 its own authorization: menus and this app's permission hooks cannot secure an unrelated permission bypass.
 
-Future solar viewer and manager roles should have `desk_access=0` and use portal administration pages;
-they do not require ERPNext roles. Staff can also hold explicitly assigned Desk roles. Do not copy the
-Wahni `Solar Monitor Viewer` role unchanged: it has Desk access and site-wide inventory permissions.
+`Solar Monitor Viewer` keeps Desk access so staff can use the read-only Desk lists, but grants only read
+on solar DocTypes (permlevel 0, so identifying account configuration stays hidden) and no ERPNext roles.
+System Manager has the same read-only solar access; Administrator bypasses DocPerm in Desk but the portal
+methods still refuse its writes, because only the owning member may manage an account.
 
 Every protected member operation calls `get_session_member()`, which checks the enabled session User,
 member role, exactly one linked member, `portal_enabled`, Approved application status and Normal/Lifetime
@@ -153,13 +154,15 @@ does not bulk-create accounts or send invitations to existing approved members: 
 individually after reviewing their email and eligibility. Verify one invitation, one portal login,
 cross-member denial and the manager approval flow before inviting the remaining members.
 
-## Future Solar Monitor ownership and administration
+## Solar Monitor ownership and administration
 
-Reuse the existing member login. Add a staff-controlled member Link to each Solar API Account; the
+Implemented in `solar_monitor/access.py` and `solar_monitor/api.py`; see `solar_monitor/README.md` for
+operations. Each Solar API Account has an immutable `member` Link set from the creating member's session; the
 ownership graph is `Member -> API Account -> Station -> Device / Alert / Production`. All read, list,
 count, summary, export, credential, test-connection and refresh methods enforce this graph on the server.
-Members operate only on their own graph. Explicit global viewer/manager roles enable the corresponding
-cross-member operations; no membership or client-submitted filter can grant global access.
+Members operate only on their own graph. The global viewer role enables cross-member reads only; no
+membership or client-submitted filter can grant global access. A future manager role would add
+cross-member management and ownership transfer, which are not implemented.
 
 Retain provider adapters, encrypted Password fields, token renewal, cooldowns, bounded retries and job
 deduplication from Wahni. Never return provider secrets, passwords or access/refresh tokens to the browser
@@ -167,10 +170,9 @@ or public API. Queueing checks ownership and current capability; jobs recheck au
 and ownership before execution. Bind OAuth state to the initiating session/member and target account;
 validate it again on callback. Ownership transfers and account disablement invalidate pending access.
 
-Wahni's overview API lists all provider accounts with `get_all`, and its current management endpoints
-require System Manager. Replace those assumptions before reuse. Add ownership filtering to every
-aggregate and count, including unpaginated totals, search and "all accounts" actions. Adapt the current
-Desk dashboard into the Masters Vue portal instead of exposing Desk to members.
+Every overview aggregate and count, including unpaginated totals, search and "all accounts" actions,
+applies the session ownership filter. The Wahni Desk dashboard page was replaced by the Masters Vue
+portal (`/solar`, `/solar/station/<name>`, `/solar/accounts`); Desk exposes only read-only lists.
 
 Provider polling remains manual until an operator configures an approved schedule and request budget.
 Enphase and Deye have different quotas/reporting cadence. Reverify the current provider contracts when
@@ -218,7 +220,8 @@ validation/avatar synchronization, password bypasses, and email expiry/replay/co
 Maps tests mock all HTTP and cover hostile hosts/ports, private-address redirects, redirect loops,
 valid short links, coordinates and fixed-endpoint geocoding.
 
-Future solar tests must additionally cover own/global-viewer/global-manager capabilities, ownership
-reassignment during queued work/OAuth, secret redaction, cross-account duplicate plants, provider unit
+`solar_monitor/tests/test_access.py` covers member A versus B, global viewer/System Manager read-only
+access, REST denial, secret redaction, per-member labels, revoked eligibility during queued work and
+OAuth state binding. Future solar tests must additionally cover a manager role, ownership reassignment, secret redaction, cross-account duplicate plants, provider unit
 normalization, missing/zero/stale readings, midnight rollover and timezones, partial provider failures,
 coverage, safe public responses and proof that homepage requests never call providers or enqueue jobs.

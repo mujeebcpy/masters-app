@@ -1,0 +1,389 @@
+{
+ "doctype": "DocType",
+ "name": "Solar API Account",
+ "module": "Solar Monitor",
+ "issingle": 0,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "fieldname": "account_label",
+   "label": "Account Label",
+   "fieldtype": "Data",
+   "reqd": 1
+  },
+  {
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Association Member",
+   "reqd": 1,
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "provider",
+   "label": "Provider",
+   "fieldtype": "Select",
+   "options": "Deye\nEnphase\nSolarman",
+   "default": "Deye",
+   "reqd": 1
+  },
+  {
+   "fieldname": "enabled",
+   "label": "Enabled",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "region",
+   "label": "Region",
+   "fieldtype": "Select",
+   "options": "India\nEurope\nAmericas",
+   "default": "India",
+   "depends_on": "eval:doc.provider!=='Enphase'"
+  },
+  {
+   "fieldname": "api_usage_section",
+   "fieldtype": "Section Break",
+   "label": "API Usage"
+  },
+  {
+   "fieldname": "month_hits",
+   "label": "API Hits This Month",
+   "fieldtype": "Int",
+   "read_only": 1,
+   "description": "Provider API hits counted for this application (client ID / app ID) in the current calendar month."
+  },
+  {
+   "fieldname": "month_hits_period",
+   "label": "Hit Count Month",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_api_usage",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "request_count",
+   "label": "Request Count",
+   "fieldtype": "Int",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "deye_credentials",
+   "label": "Deye Credentials",
+   "fieldtype": "Section Break",
+   "depends_on": "eval:doc.provider==='Deye' || doc.provider==='Solarman'"
+  },
+  {
+   "fieldname": "app_id",
+   "label": "App Id",
+   "fieldtype": "Data",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "app_secret",
+   "label": "App Secret",
+   "fieldtype": "Password"
+  },
+  {
+   "fieldname": "email",
+   "label": "Email",
+   "fieldtype": "Data",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "password",
+   "label": "Password",
+   "fieldtype": "Password",
+   "description": "Normal login password. Deye SHA-256 hashing happens only on the server."
+  },
+  {
+   "fieldname": "company_id",
+   "label": "Company Id",
+   "fieldtype": "Data",
+   "depends_on": "eval:doc.provider==='Deye'",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "company_name",
+   "label": "Company Name",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "depends_on": "eval:doc.provider==='Deye'"
+  },
+  {
+   "fieldname": "company_details_fetched_at",
+   "label": "Company Details Fetched At",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company_lookup_attempted",
+   "label": "Company Lookup Attempted",
+   "fieldtype": "Check",
+   "hidden": 1
+  },
+  {
+   "fieldname": "company_lookup_error",
+   "label": "Company Lookup Error",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  },
+  {
+   "fieldname": "enphase_credentials",
+   "label": "Enphase Credentials",
+   "fieldtype": "Section Break",
+   "depends_on": "eval:doc.provider==='Enphase'"
+  },
+  {
+   "fieldname": "api_key",
+   "label": "API Key",
+   "fieldtype": "Password"
+  },
+  {
+   "fieldname": "client_id",
+   "label": "Client ID",
+   "fieldtype": "Data",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "client_secret",
+   "label": "Client Secret",
+   "fieldtype": "Password"
+  },
+  {
+   "fieldname": "redirect_uri",
+   "label": "Redirect URI",
+   "fieldtype": "Data",
+   "description": "Leave empty to use Enphase's default page and paste the code it shows. To finish automatically, set it to https://<your-site>/api/method/masters_association.solar_monitor.api.enphase_callback and register the same URI on the Enphase application.",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "enphase_username",
+   "label": "Enlighten Username",
+   "fieldtype": "Data",
+   "description": "Partner plan: installer Enlighten login used for the password grant, so no browser authorization is needed. Leave empty to use Authorize with Enphase instead.",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "enphase_password",
+   "label": "Enlighten Password",
+   "fieldtype": "Password"
+  },
+  {
+   "fieldname": "authentication",
+   "label": "Authentication",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "access_token",
+   "label": "Access Token",
+   "fieldtype": "Password",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "refresh_token",
+   "label": "Refresh Token",
+   "fieldtype": "Password",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "token_type",
+   "label": "Token Type",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "expires_at",
+   "label": "Expires At",
+   "fieldtype": "Datetime",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "scope",
+   "label": "Scope",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "hidden": 0,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "provider_user_id",
+   "label": "Provider User Id",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "hidden": 0,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "last_authentication",
+   "label": "Last Authentication",
+   "fieldtype": "Datetime",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "connection_status",
+   "label": "Connection Status",
+   "fieldtype": "Select",
+   "options": "\nNot connected\nConnected\nError",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "authentication_error",
+   "label": "Authentication Error",
+   "fieldtype": "Small Text",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "last_successful_sync",
+   "label": "Last Successful Sync",
+   "fieldtype": "Datetime",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "sync_status",
+   "label": "Sync Status",
+   "fieldtype": "Select",
+   "options": "\nQueued\nRunning\nCompleted\nFailed",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "sync_error",
+   "label": "Sync Error",
+   "fieldtype": "Small Text",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "sync_started_at",
+   "label": "Sync Started At",
+   "fieldtype": "Datetime",
+   "read_only": 1,
+   "hidden": 0
+  },
+  {
+   "fieldname": "alerts_section",
+   "label": "Alerts",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "alert_status",
+   "label": "Alert Check Status",
+   "fieldtype": "Select",
+   "options": "\nQueued\nRunning\nCompleted\nFailed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_alert_sync",
+   "label": "Last Alert Check",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "alert_started_at",
+   "label": "Alert Check Started At",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "alert_error",
+   "label": "Alert Check Error",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "account_label",
+  "member",
+  "provider",
+  "enabled",
+  "region",
+  "api_usage_section",
+  "month_hits",
+  "month_hits_period",
+  "column_break_api_usage",
+  "request_count",
+  "deye_credentials",
+  "app_id",
+  "app_secret",
+  "email",
+  "password",
+  "company_id",
+  "company_name",
+  "company_details_fetched_at",
+  "company_lookup_attempted",
+  "company_lookup_error",
+  "enphase_credentials",
+  "api_key",
+  "client_id",
+  "client_secret",
+  "redirect_uri",
+  "enphase_username",
+  "enphase_password",
+  "authentication",
+  "access_token",
+  "refresh_token",
+  "token_type",
+  "expires_at",
+  "scope",
+  "provider_user_id",
+  "last_authentication",
+  "connection_status",
+  "authentication_error",
+  "last_successful_sync",
+  "sync_status",
+  "sync_error",
+  "sync_started_at",
+  "alerts_section",
+  "alert_status",
+  "last_alert_sync",
+  "alert_started_at",
+  "alert_error"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1,
+   "export": 0,
+   "print": 0,
+   "email": 0,
+   "share": 0,
+   "create": 0,
+   "write": 0,
+   "delete": 0
+  },
+  {
+   "role": "Solar Monitor Viewer",
+   "read": 1,
+   "report": 1,
+   "export": 0,
+   "print": 0,
+   "email": 0,
+   "share": 0,
+   "create": 0,
+   "write": 0,
+   "delete": 0
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "autoname": "hash",
+ "title_field": "account_label",
+ "show_title_field_in_link": 1
+}

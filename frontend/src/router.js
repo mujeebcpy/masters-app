@@ -11,6 +11,15 @@ const routes = [
 			{ path: "account", name: "MemberAccount", component: () => import("./pages/MemberAccount.vue"), meta: { title: "Account settings" } },
 		],
 	},
+	{
+		path: "/solar",
+		component: () => import("./components/SolarLayout.vue"),
+		children: [
+			{ path: "", name: "SolarDashboard", component: () => import("./pages/SolarDashboard.vue"), meta: { title: "Solar monitor" } },
+			{ path: "accounts", name: "SolarAccounts", component: () => import("./pages/SolarAccounts.vue"), meta: { title: "Solar API accounts" } },
+			{ path: "station/:name", name: "SolarStation", component: () => import("./pages/SolarStation.vue"), props: true, meta: { title: "Solar station" } },
+		],
+	},
 	{ path: "/", name: "Home", component: () => import("./pages/Home.vue") },
 	{ path: "/about", name: "About", component: () => import("./pages/About.vue"), meta: { title: "About us" } },
 	{

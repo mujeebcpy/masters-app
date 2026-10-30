@@ -1,0 +1,82 @@
+{
+ "doctype": "DocType",
+ "name": "Solar Monitor Settings",
+ "module": "Solar Monitor",
+ "issingle": 1,
+ "engine": "InnoDB",
+ "fields": [
+  {
+   "fieldname": "refresh_cooldown",
+   "label": "Refresh Cooldown",
+   "fieldtype": "Int",
+   "default": 120
+  },
+  {
+   "fieldname": "token_renewal_margin",
+   "label": "Token Renewal Margin",
+   "fieldtype": "Int",
+   "default": 300
+  },
+  {
+   "fieldname": "requests_per_minute",
+   "label": "Deye Requests Per Minute",
+   "fieldtype": "Int",
+   "default": 30
+  },
+  {
+   "fieldname": "enphase_requests_per_minute",
+   "label": "Enphase Requests Per Minute",
+   "fieldtype": "Int",
+   "default": 300,
+   "description": "Per Enphase application. Partner plan limit is 300 per minute; per-minute 429s are retried."
+  },
+  {
+   "fieldname": "production_refresh_cooldown",
+   "label": "Production Refresh Cooldown (seconds)",
+   "fieldtype": "Int",
+   "default": 300
+  },
+  {
+   "fieldname": "alert_lookback_days",
+   "label": "Alert Lookback (days, max 180)",
+   "fieldtype": "Int",
+   "default": 30
+  },
+  {
+   "fieldname": "enphase_production_refresh_cooldown",
+   "label": "Enphase Production Refresh Cooldown (seconds)",
+   "fieldtype": "Int",
+   "default": 900,
+   "description": "Enphase gateways report every 15 minutes; refreshing sooner spends hits without new data."
+  },
+  {
+   "fieldname": "enphase_monthly_budget",
+   "label": "Enphase Monthly Hit Budget",
+   "fieldtype": "Int",
+   "default": 9000,
+   "description": "Provider calls stop once an Enphase application reaches this many hits in a month (Partner plan: 10,000 free)."
+  }
+ ],
+ "field_order": [
+  "refresh_cooldown",
+  "token_renewal_margin",
+  "requests_per_minute",
+  "enphase_requests_per_minute",
+  "production_refresh_cooldown",
+  "alert_lookback_days",
+  "enphase_production_refresh_cooldown",
+  "enphase_monthly_budget"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 0
+}

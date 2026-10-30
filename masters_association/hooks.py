@@ -8,7 +8,7 @@ app_license = "mit"
 fixtures = [
 	{
 		"dt": "Role",
-		"filters": [["name", "in", ["Masters Manager", "Association Member"]]],
+		"filters": [["name", "in", ["Masters Manager", "Association Member", "Solar Monitor Viewer"]]],
 	},
 	{
 		"dt": "Role Profile",
@@ -94,8 +94,10 @@ website_route_rules = [
 		"member",
 		"member/profile",
 		"member/account",
+		"solar",
+		"solar/accounts",
 	)
-]
+] + [{"from_route": "/solar/station/<path:name>", "to_route": "masters"}]
 
 website_redirects = [
 	{"source": "/index", "target": "/"},
@@ -325,3 +327,10 @@ doc_events = {
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
+
+scheduler_events = {
+	"cron": {
+		# After sunset (system time zone), so today's solar energy is final.
+		"0 19 * * *": ["masters_association.solar_monitor.schedule.daily_refresh"],
+	},
+}

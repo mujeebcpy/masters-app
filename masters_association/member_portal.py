@@ -127,9 +127,13 @@ def get_session():
 		"display_name": None,
 		"photo": None,
 		"reason": None,
+		"solar_access": None,
 	}
 	if user == "Guest":
 		return result
+	from masters_association.solar_monitor.access import session_access
+
+	result["solar_access"] = session_access()
 	try:
 		member = get_session_member()
 	except frappe.PermissionError as exc:

@@ -1,6 +1,7 @@
 export const method = (path) => `/api/v2/method/${path}`
 export const websiteMethod = (name) => method(`masters_association.website.${name}`)
 export const memberMethod = (name) => method(`masters_association.member_portal.${name}`)
+export const solarMethod = (name) => method(`masters_association.solar_monitor.api.${name}`)
 
 export function formatDate(value, options = { day: "numeric", month: "short", year: "numeric" }) {
 	if (!value) return ""
