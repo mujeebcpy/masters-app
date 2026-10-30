@@ -69,11 +69,16 @@
  ],
  "permissions": [
   {
+   "role": "Administrator",
+   "read": 1,
+   "delete": 1
+  },
+  {
    "role": "System Manager",
    "read": 1,
    "write": 1,
    "create": 1,
-   "delete": 1
+   "delete": 0
   }
  ],
  "sort_field": "modified",

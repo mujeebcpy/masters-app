@@ -3,9 +3,12 @@
 import re
 
 import frappe
+from pypika import Case
+
 from frappe import _
+from frappe.query_builder.functions import Count, Max, Sum
 from frappe.rate_limiter import rate_limit
-from frappe.utils import getdate, today
+from frappe.utils import cint, flt, getdate, today
 
 from masters_association.geo import point_from_geojson
 from masters_association.photos import validate_profile_photo
@@ -153,6 +156,60 @@ def _get_member_locations():
 	return locations
 
 
+def _get_home_stats():
+	"""Public aggregates only; never fetch providers, enqueue work or change snapshots.
+
+	Count all approved members, regardless of directory/portal visibility. Solar
+	figures include their present stations even when an account is disabled.
+	Daily/monthly readings must belong to the current site date/month; missing
+	readings stay unavailable rather than masquerading as measured zeroes.
+	"""
+	member = frappe.qb.DocType("Association Member")
+	account = frappe.qb.DocType("Solar API Account")
+	station = frappe.qb.DocType("Solar Station")
+	current_date = getdate(today())
+	month_start = current_date.replace(day=1)
+	readings = {
+		"daily_production_kwh": (station.has_daily == 1) & (station.production_date == current_date),
+		"monthly_production_kwh": (station.has_monthly == 1)
+		& (station.production_date >= month_start)
+		& (station.production_date <= current_date),
+		"total_production_kwh": station.has_total == 1,
+	}
+	fields = [
+		Count(station.name).as_("station_count"),
+		Sum(station.capacity_kw).as_("capacity_kw"),
+		Max(station.last_production_fetch).as_("last_production_fetch"),
+	]
+	for field, condition in readings.items():
+		valid = condition & station[field].isnotnull()
+		fields.extend(
+			[
+				Sum(Case().when(valid, station[field])).as_(field),
+				Count(Case().when(valid, station.name)).as_(field + "_coverage"),
+			]
+		)
+	result = (
+		frappe.qb.from_(station)
+		.join(account)
+		.on(station.account == account.name)
+		.join(member)
+		.on(account.member == member.name)
+		.select(*fields)
+		.where(member.application_status == "Approved")
+		.where(station.present == 1)
+		.run(as_dict=True)
+	)[0]
+	result["member_count"] = frappe.db.count("Association Member", {"application_status": "Approved"})
+	result["station_count"] = cint(result["station_count"])
+	result["capacity_kw"] = flt(result["capacity_kw"])
+	for field in readings:
+		result[field] = flt(result[field]) if result[field] is not None else None
+		result[field + "_coverage"] = cint(result[field + "_coverage"])
+	result["production_date"] = str(current_date)
+	return result
+
+
 @frappe.whitelist(allow_guest=True)
 def get_home_data():
 	holders = _get_position_holders()
@@ -165,6 +222,7 @@ def get_home_data():
 		team = secretariat["members"][:4] if secretariat else []
 
 	return {
+		"stats": _get_home_stats(),
 		"team": team,
 		"glimpses": get_gallery(media_type="Photo", home_page_only=True, limit=12),
 		"upcoming_events": get_events()["upcoming"][:3],

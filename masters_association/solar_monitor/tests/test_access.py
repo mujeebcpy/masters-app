@@ -108,12 +108,20 @@ class TestSolarAccess(IntegrationTestCase):
 			lambda: api.sync_inventory(self.account_b),
 			lambda: api.test_connection(self.account_b),
 			lambda: api.disable_my_account(self.account_b),
+			lambda: api.enable_my_account(self.account_b),
 			lambda: api.save_my_account(json.dumps({"account_label": "Mine"}), self.account_b),
 		):
 			with self.assertRaises(frappe.PermissionError):
 				call()
 		with self.assertRaises(frappe.ValidationError):
 			api.check_alerts(self.account_b)
+
+	def test_member_can_reenable_own_account(self):
+		frappe.set_user(self.user_a)
+		api.disable_my_account(self.account_a)
+		self.assertEqual(frappe.db.get_value(service.ACCOUNT, self.account_a, "enabled"), 0)
+		self.assertEqual(api.enable_my_account(self.account_a)["status"], "Enabled")
+		self.assertEqual(frappe.db.get_value(service.ACCOUNT, self.account_a, "enabled"), 1)
 
 	def test_station_inherits_owner(self):
 		self.assertEqual(frappe.db.get_value("Solar Station", self.station_a, "member"), self.member_a)
@@ -151,6 +159,27 @@ class TestSolarAccess(IntegrationTestCase):
 		self.assertTrue(frappe.has_permission("Solar Station", "read"))
 		self.assertFalse(frappe.has_permission("Solar Station", "write"))
 		self.assertFalse(frappe.has_permission("Solar API Account", "create"))
+
+	def test_only_administrator_can_delete_solar_records(self):
+		doctypes = ("Solar API Account", "Solar Station", "Solar Device", "Solar Alert", "Solar Monitor Settings")
+		for user in (self.admin, self.viewer, self.user_a, self.user_b, "Guest"):
+			frappe.set_user(user)
+			for doctype in doctypes:
+				self.assertFalse(frappe.has_permission(doctype, "delete"), doctype)
+		frappe.set_user("Administrator")
+		# Desk builds its delete actions from DocPerm, not has_permission's
+		# special-case bypass for Administrator.
+		from frappe.utils.user import UserPermissions
+
+		permissions = UserPermissions("Administrator")
+		permissions.build_permissions()
+		for doctype in doctypes:
+			self.assertTrue(frappe.has_permission(doctype, "delete"), doctype)
+			self.assertIn(doctype, permissions.can_delete)
+			self.assertEqual(
+				{row.role for row in frappe.get_meta(doctype).permissions if row.get("delete")},
+				{"Administrator"},
+			)
 
 	def test_secrets_are_never_returned(self):
 		frappe.set_user(self.user_a)

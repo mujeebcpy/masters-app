@@ -13,6 +13,7 @@ const accountOptions = computed(() => [
 	{ label: "My profile", route: "/member/profile", icon: "lucide-user" },
 	...(session.data?.solar_access ? [{ label: "Solar monitor", route: "/solar", icon: "lucide-sun" }] : []),
 	{ label: "Account settings", route: "/member/account", icon: "lucide-settings" },
+	...(session.data?.has_desk_access ? [{ label: "Desk", icon: "lucide-layout-dashboard", onClick: () => window.location.assign("/app") }] : []),
 	{ label: "Log out", icon: "lucide-log-out", onClick: logout, disabled: logoutRequest.loading },
 ])
 

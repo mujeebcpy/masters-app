@@ -1,14 +1,27 @@
 <script setup>
-import { ref } from "vue"
+import { computed, ref } from "vue"
 import { Button, Skeleton, useCall } from "frappe-ui"
-import { asset, highlights, reasons, stats } from "@/data/site"
+import { asset, highlights, reasons } from "@/data/site"
 import { formatDate, websiteMethod } from "@/api"
+import { formatDateTime } from "@/solar/format"
 import SectionHeading from "@/components/SectionHeading.vue"
 import MemberCard from "@/components/MemberCard.vue"
 import MemberDialog from "@/components/MemberDialog.vue"
 import Lightbox from "@/components/Lightbox.vue"
 
 const home = useCall({ url: websiteMethod("get_home_data"), cacheKey: "home-data" })
+const stats = computed(() => {
+	const data = home.data?.stats
+	return [
+		{ label: "Total members", value: data?.member_count },
+		{ label: "Total plants", value: data?.station_count },
+		{ label: "Total capacity", value: data?.capacity_kw, unit: "kW" },
+		{ label: "Production today", value: data?.daily_production_kwh, unit: "kWh" },
+		{ label: "Production this month", value: data?.monthly_production_kwh, unit: "kWh" },
+		{ label: "Lifetime production", value: data?.total_production_kwh, unit: "kWh" },
+	]
+})
+const formatStat = (value) => value == null ? "—" : new Intl.NumberFormat("en-IN", { maximumFractionDigits: 2 }).format(value)
 const selectedMember = ref(null)
 const lightboxIndex = ref(null)
 </script>
@@ -64,19 +77,26 @@ const lightboxIndex = ref(null)
 
 	<!-- Stats -->
 	<section class="container-page relative z-10 -mt-16">
-		<dl class="grid grid-cols-2 overflow-hidden rounded-7 border border-outline-gray-1 bg-surface-base shadow-xl lg:grid-cols-4">
+		<dl class="grid grid-cols-2 overflow-hidden rounded-7 border border-outline-gray-1 bg-surface-base shadow-xl lg:grid-cols-3" :aria-busy="home.loading">
 			<div
 				v-for="(stat, i) in stats"
 				:key="stat.label"
 				class="border-outline-gray-1 p-6 sm:p-8"
-				:class="[i % 2 === 0 && 'border-r', i < 2 && 'border-b lg:border-b-0', i === 1 && 'lg:border-r']"
+				:class="[i % 2 === 0 && 'border-r', i % 3 === 2 ? 'lg:border-r-0' : 'lg:border-r', i < 4 && 'border-b', i >= 3 && 'lg:border-b-0']"
 			>
 				<dt class="text-sm-medium text-ink-gray-5">{{ stat.label }}</dt>
-				<dd class="mt-2 font-display text-display-sm font-bold text-ink-gray-9 sm:text-display-md">
-					{{ stat.value }}<span class="text-brand-500">{{ stat.suffix }}</span>
+				<dd class="mt-2 font-display text-display-xs font-bold text-ink-gray-9 sm:text-display-sm">
+					<Skeleton v-if="!home.data && home.loading" class="h-10 w-28 rounded-4" />
+					<template v-else>{{ formatStat(stat.value) }}<span v-if="stat.unit && stat.value != null" class="ml-1.5 text-lg text-brand-500">{{ stat.unit }}</span></template>
 				</dd>
 			</div>
 		</dl>
+		<p v-if="home.error && !home.data" class="mt-4 text-sm text-ink-gray-6" role="status">Statistics are temporarily unavailable.</p>
+		<p v-else-if="home.data?.stats" class="mt-4 text-sm text-ink-gray-6">
+			Approved members and their monitored plants. Production uses saved readings only; this page does not request new data.
+			Today’s readings: {{ formatStat(home.data.stats.daily_production_kwh_coverage) }} / {{ formatStat(home.data.stats.station_count) }} plants ({{ formatDate(home.data.stats.production_date) }}).
+			<template v-if="home.data.stats.last_production_fetch">Latest saved update: {{ formatDateTime(home.data.stats.last_production_fetch) }}.</template>
+		</p>
 	</section>
 
 	<!-- Who we are -->
@@ -299,7 +319,7 @@ const lightboxIndex = ref(null)
 				<div>
 					<h2 class="text-display-sm font-bold text-white sm:text-display-md">Grow with Kerala's solar community</h2>
 					<p class="mt-3 max-w-xl text-p-lg text-white/75">
-						Registration is open for MNRE-registered vendors. Join over 600 members sharing knowledge,
+						Registration is open for MNRE-registered vendors. Join our members sharing knowledge,
 						training and support.
 					</p>
 				</div>

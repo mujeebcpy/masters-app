@@ -128,9 +128,11 @@ def get_session():
 		"photo": None,
 		"reason": None,
 		"solar_access": None,
+		"has_desk_access": False,
 	}
 	if user == "Guest":
 		return result
+	result["has_desk_access"] = bool(frappe.get_doc("User", user).has_desk_access())
 	from masters_association.solar_monitor.access import session_access
 
 	result["solar_access"] = session_access()

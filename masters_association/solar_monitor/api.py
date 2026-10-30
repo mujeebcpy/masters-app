@@ -117,6 +117,15 @@ def disable_my_account(account: str):
 
 
 @frappe.whitelist(methods=["POST"])
+def enable_my_account(account: str):
+	access.require_account(account, write=True)
+	doc = frappe.get_doc(service.ACCOUNT, account, for_update=True)
+	doc.enabled = 1
+	doc.save(ignore_permissions=True)
+	return {"status": "Enabled"}
+
+
+@frappe.whitelist(methods=["POST"])
 def test_connection(account: str):
 	access.require_account(account, write=True)
 	service.account_doc(account)

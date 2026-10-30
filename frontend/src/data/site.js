@@ -50,15 +50,8 @@ export const navigation = [
 	{ label: "Contact", route: "/contact" },
 ]
 
-export const stats = [
-	{ value: "600", suffix: "+", label: "Members" },
-	{ value: "3", suffix: "+", label: "Years of experience" },
-	{ value: "90", suffix: "%", label: "Success rate" },
-	{ value: "700", suffix: "+", label: "Works done" },
-]
-
 export const highlights = [
-	"Over 600 members",
+	"A growing member network",
 	"MNRE subsidy program",
 	"Quality-control association",
 	"Supporting new members",

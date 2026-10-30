@@ -19,7 +19,7 @@ const committeeTitles = {
 const members = useCall({ url: websiteMethod("get_members"), cacheKey: "members" })
 const tab = ref("committee")
 const query = ref("")
-const district = ref(null)
+const district = ref("")
 const selectedMember = ref(null)
 
 const tabs = computed(() => [
@@ -36,7 +36,7 @@ function count(key) {
 const districts = computed(() => {
 	const all = [...(members.data?.lifetime || []), ...(members.data?.ordinary || [])]
 	const names = [...new Set(all.map((m) => m.district).filter(Boolean))].sort()
-	return [{ label: "All districts", value: null }, ...names.map((d) => ({ label: d, value: d }))]
+	return [{ label: "All districts", value: "" }, ...names.map((d) => ({ label: d, value: d }))]
 })
 
 function matches(member) {

@@ -356,6 +356,11 @@
  ],
  "permissions": [
   {
+   "role": "Administrator",
+   "read": 1,
+   "delete": 1
+  },
+  {
    "role": "System Manager",
    "read": 1,
    "report": 1,

@@ -8,7 +8,7 @@ import { formatDateTime, statusTheme } from "@/solar/format"
 const { session } = useMemberSession()
 const accounts = useCall({ url: solarMethod("get_my_accounts") })
 const save = useCall({ url: solarMethod("save_my_account"), method: "POST", immediate: false })
-const ACTIONS = ["test_connection", "sync_inventory", "fetch_company_details", "disable_my_account", "enphase_authorize_url", "enphase_authorize"]
+const ACTIONS = ["test_connection", "sync_inventory", "fetch_company_details", "disable_my_account", "enable_my_account", "enphase_authorize_url", "enphase_authorize"]
 const actions = Object.fromEntries(ACTIONS.map((name) => [name, useCall({ url: solarMethod(name), method: "POST", immediate: false })]))
 const pending = ref("")
 
@@ -116,6 +116,10 @@ async function fetchCompany(account) {
 
 async function disable(account) {
 	if (await call("disable_my_account", account)) toast.success("Account disabled.")
+}
+
+async function enable(account) {
+	if (await call("enable_my_account", account)) toast.success("Account enabled.")
 }
 
 async function startEnphase(account) {
@@ -227,6 +231,7 @@ const busy = (name, account) => pending.value === `${name}:${account.name}`
 					/>
 					<Button label="Disable" variant="ghost" theme="red" class="sm:ml-auto" :loading="busy('disable_my_account', account)" @click="disable(account)" />
 				</template>
+				<Button v-else label="Enable" icon-left="lucide-check" theme="green" class="sm:ml-auto" :loading="busy('enable_my_account', account)" @click="enable(account)" />
 			</div>
 		</div>
 
