@@ -1,0 +1,14 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Role Profile",
+  "modified": "2026-10-30 00:00:00.000000",
+  "name": "Masters Member Portal",
+  "role_profile": "Masters Member Portal",
+  "roles": [
+   {
+    "role": "Association Member"
+   }
+  ]
+ }
+]

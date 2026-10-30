@@ -36,6 +36,19 @@ Content is managed from the desk: open **Masters** on `/desk` (or go to `/desk/m
 - **Association Event** and **Association Document**: `/events` and `/documents`.
 - **Website Enquiry**: messages from the contact and grievance forms.
 
+### Member portal
+
+Approved Normal/Lifetime members with portal access enabled receive a linked Frappe Website User and
+password-setup invitation. They manage their profile at `/member/profile` and verified login-email and
+password changes at `/member/account`. Staff use **Masters Manager** for Masters administration;
+existing User linkage remains a System Manager action. Existing approved records are invited individually
+after migration, without automatic bulk invitations.
+
+See [Member portal and future Solar Monitor](docs/architecture/member-portal-and-solar-monitor.md) for
+setup, retry and permission behavior, backend methods, and the future monitoring ownership, global
+viewer/manager and anonymous homepage statistics requirements. Solar monitoring and public solar cards
+are future work.
+
 ### Contributing
 
 This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:

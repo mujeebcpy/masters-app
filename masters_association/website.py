@@ -1,7 +1,6 @@
 """Guest APIs backing the public Masters Association website (the Vue app in /frontend)."""
 
 import re
-from io import BytesIO
 
 import frappe
 from frappe import _
@@ -9,9 +8,9 @@ from frappe.rate_limiter import rate_limit
 from frappe.utils import getdate, today
 
 from masters_association.geo import point_from_geojson
+from masters_association.photos import validate_profile_photo
 
 REGISTRATION_WEB_FORM = "members-registration"
-MAX_PHOTO_SIZE = 5 * 1024 * 1024
 COMMITTEES = ("State Secretariat", "State Executive", "District Coordinator")
 YOUTUBE_ID_PATTERN = re.compile(r"(?:youtu\.be/|v=|embed/|shorts/|live/)([A-Za-z0-9_-]{11})")
 
@@ -160,7 +159,9 @@ def get_home_data():
 	team = [{**_member_card(r), "position": r.position} for r in holders if r.show_on_home_page]
 	if not team:
 		# nobody picked for the home page yet: show the current State Secretariat
-		secretariat = next((c for c in _get_committees(holders) if c["committee"] == "State Secretariat"), None)
+		secretariat = next(
+			(c for c in _get_committees(holders) if c["committee"] == "State Secretariat"), None
+		)
 		team = secretariat["members"][:4] if secretariat else []
 
 	return {
@@ -292,19 +293,11 @@ def register_member(data: str, photo: str | None = None, photo_name: str | None 
 	here because `accept` saves base64 attachments with the caller's permissions, which a guest
 	does not have on File.
 	"""
-	from frappe.core.doctype.file.utils import decode_file_content
 	from frappe.website.doctype.web_form.web_form import accept
-	from PIL import Image
 
 	content = None
 	if photo:
-		content = decode_file_content(photo)
-		if len(content) > MAX_PHOTO_SIZE:
-			frappe.throw(_("Photo must be smaller than 5 MB."))
-		try:
-			Image.open(BytesIO(content)).verify()
-		except Exception:
-			frappe.throw(_("Photo must be a JPG or PNG image."))
+		content, image_format = validate_profile_photo(photo)
 
 	doc = accept(REGISTRATION_WEB_FORM, data)
 
@@ -312,7 +305,7 @@ def register_member(data: str, photo: str | None = None, photo_name: str | None 
 		file = frappe.get_doc(
 			{
 				"doctype": "File",
-				"file_name": re.sub(r"[^\w.-]+", "-", photo_name or "photo.jpg"),
+				"file_name": f"{doc.name}-profile.{'jpg' if image_format == 'JPEG' else 'png'}",
 				"attached_to_doctype": doc.doctype,
 				"attached_to_name": doc.name,
 				"attached_to_field": "photo",

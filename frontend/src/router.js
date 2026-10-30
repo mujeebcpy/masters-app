@@ -1,6 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router"
 
 const routes = [
+	{
+		path: "/member",
+		component: () => import("./components/MemberPortalLayout.vue"),
+		meta: { requiresMember: true },
+		children: [
+			{ path: "", redirect: "/member/profile" },
+			{ path: "profile", name: "MemberProfile", component: () => import("./pages/MemberProfile.vue"), meta: { title: "My profile" } },
+			{ path: "account", name: "MemberAccount", component: () => import("./pages/MemberAccount.vue"), meta: { title: "Account settings" } },
+		],
+	},
 	{ path: "/", name: "Home", component: () => import("./pages/Home.vue") },
 	{ path: "/about", name: "About", component: () => import("./pages/About.vue"), meta: { title: "About us" } },
 	{

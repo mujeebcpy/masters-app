@@ -5,13 +5,13 @@
   "document_type": "Association Member",
   "enable_action_confirmation": 0,
   "is_active": 1,
-  "modified": "2026-09-24 14:21:50.243344",
+  "modified": "2026-10-30 00:00:00.000000",
   "name": "Association Member Approval",
   "override_status": 0,
   "send_email_alert": 0,
   "states": [
    {
-    "allow_edit": "Membership Reviewer",
+    "allow_edit": "Masters Manager",
     "avoid_status_override": 0,
     "doc_status": "0",
     "evaluate_as_expression": 0,
@@ -25,7 +25,7 @@
     "workflow_builder_id": null
    },
    {
-    "allow_edit": "System Manager",
+    "allow_edit": "Masters Manager",
     "avoid_status_override": 0,
     "doc_status": "0",
     "evaluate_as_expression": 0,
@@ -39,7 +39,7 @@
     "workflow_builder_id": null
    },
    {
-    "allow_edit": "System Manager",
+    "allow_edit": "Masters Manager",
     "avoid_status_override": 0,
     "doc_status": "0",
     "evaluate_as_expression": 0,
@@ -57,7 +57,7 @@
    {
     "action": "Approve",
     "allow_self_approval": 0,
-    "allowed": "Membership Reviewer",
+    "allowed": "Masters Manager",
     "condition": null,
     "next_state": "Approved",
     "send_email_to_creator": 0,
@@ -68,7 +68,7 @@
    {
     "action": "Reject",
     "allow_self_approval": 0,
-    "allowed": "Membership Reviewer",
+    "allowed": "Masters Manager",
     "condition": null,
     "next_state": "Rejected",
     "send_email_to_creator": 0,
@@ -79,7 +79,7 @@
    {
     "action": "Review",
     "allow_self_approval": 0,
-    "allowed": "System Manager",
+    "allowed": "Masters Manager",
     "condition": null,
     "next_state": "Pending",
     "send_email_to_creator": 0,
@@ -90,7 +90,7 @@
    {
     "action": "Review",
     "allow_self_approval": 0,
-    "allowed": "System Manager",
+    "allowed": "Masters Manager",
     "condition": null,
     "next_state": "Pending",
     "send_email_to_creator": 0,

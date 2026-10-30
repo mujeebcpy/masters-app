@@ -9,7 +9,7 @@ export default defineConfig({
 			frontendRoute: "/",
 			frappeProxy: {
 				// the website lives at the site root, so only backend paths are proxied
-				source: "^/(app|login|api|assets|files|private|members-registration)",
+				source: "^/(app|login|api|assets|files|private|members-registration|update-password)",
 			},
 			buildConfig: {
 				indexHtmlPath: "../masters_association/www/masters.html",

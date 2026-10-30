@@ -6,24 +6,22 @@ app_email = "mujeebrahman@wahni.com"
 app_license = "mit"
 
 fixtures = [
-    {
-        "dt": "Role",
-        "filters": [
-            ["name", "in", ["Membership Reviewer"]]
-        ],
-    },
-    {
-        "dt": "Workflow",
-        "filters": [
-            ["name", "in", ["Association Member Approval"]]
-        ],
-    },
-    {
-        "dt": "List View Settings",
-        "filters": [
-            ["name", "in", ["Association Member"]]
-        ],
-    },
+	{
+		"dt": "Role",
+		"filters": [["name", "in", ["Masters Manager", "Association Member"]]],
+	},
+	{
+		"dt": "Role Profile",
+		"filters": [["name", "in", ["Masters Member Portal"]]],
+	},
+	{
+		"dt": "Workflow",
+		"filters": [["name", "in", ["Association Member Approval"]]],
+	},
+	{
+		"dt": "List View Settings",
+		"filters": [["name", "in", ["Association Member"]]],
+	},
 ]
 # Apps
 # ------------------
@@ -93,6 +91,9 @@ website_route_rules = [
 		"documents",
 		"grievance",
 		"contact",
+		"member",
+		"member/profile",
+		"member/account",
 	)
 ]
 
@@ -106,6 +107,13 @@ website_redirects = [
 # role_home_page = {
 # 	"Role": "home_page"
 # }
+
+role_home_page = {"Association Member": "/member/profile"}
+
+extend_doctype_class = {
+	"User": ["masters_association.member_portal.MemberUserMixin"],
+	"File": ["masters_association.member_files.MemberPhotoFileMixin"],
+}
 
 # Generators
 # ----------
@@ -183,6 +191,10 @@ website_redirects = [
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
 
+has_permission = {"*": "masters_association.permissions.has_scoped_permission"}
+permission_query_conditions = {"*": "masters_association.permissions.get_scoped_query_conditions"}
+auth_hooks = ["masters_association.rpc_permissions.check_rpc_scope"]
+
 # Document Events
 # ---------------
 # Hook on document methods and events
@@ -194,6 +206,15 @@ website_redirects = [
 # 		"on_trash": "method"
 # 	}
 # }
+
+doc_events = {
+	"File": {"before_validate": "masters_association.member_files.validate_member_file"},
+	"User": {
+		"before_validate": "masters_association.member_portal.validate_user_account",
+		"before_rename": "masters_association.member_portal.before_user_rename",
+		"after_rename": "masters_association.member_portal.after_user_rename",
+	},
+}
 
 # Scheduled Tasks
 # ---------------
@@ -304,4 +325,3 @@ website_redirects = [
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-

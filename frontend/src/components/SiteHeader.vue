@@ -1,11 +1,23 @@
 <script setup>
-import { ref, watch } from "vue"
+import { computed, ref, watch } from "vue"
 import { useRoute } from "vue-router"
-import { Button, Dropdown } from "frappe-ui"
+import { Alert, Avatar, Button, Dropdown } from "frappe-ui"
 import { navigation, site } from "@/data/site"
+import { errorText } from "@/api"
+import { loginUrl, useMemberSession } from "@/member/session"
 
 const route = useRoute()
 const mobileOpen = ref(false)
+const { session, logoutRequest, logout } = useMemberSession()
+const accountOptions = computed(() => [
+	{ label: "My profile", route: "/member/profile", icon: "lucide-user" },
+	{ label: "Account settings", route: "/member/account", icon: "lucide-settings" },
+	{ label: "Log out", icon: "lucide-log-out", onClick: logout, disabled: logoutRequest.loading },
+])
+
+function login() {
+	window.location.assign(loginUrl())
+}
 
 watch(
 	() => route.fullPath,
@@ -52,7 +64,16 @@ function menuOptions(item) {
 			</nav>
 
 			<div class="flex items-center gap-2">
+				<Dropdown v-if="session.data?.is_logged_in" :options="accountOptions" align="end">
+					<Button variant="ghost" size="md" aria-label="Member account" :loading="logoutRequest.loading">
+						<Avatar :label="session.data.display_name || session.data.user" :image="session.data.photo" size="sm" />
+						<span class="hidden sm:inline">My account</span>
+						<span class="lucide-chevron-down size-3.5" aria-hidden="true" />
+					</Button>
+				</Dropdown>
+				<Button v-else-if="session.isFinished && !session.loading" label="Member login" variant="ghost" size="md" @click="login" />
 				<Button
+					v-if="!session.data?.is_logged_in"
 					class="hidden sm:inline-flex"
 					variant="solid"
 					theme="green"
@@ -71,6 +92,9 @@ function menuOptions(item) {
 					@click="mobileOpen = !mobileOpen"
 				/>
 			</div>
+		</div>
+		<div v-if="logoutRequest.error" class="container-page pb-3">
+			<Alert theme="red" title="Couldn't log out" :description="errorText(logoutRequest.error)" />
 		</div>
 
 		<Transition

@@ -7,3 +7,4 @@
 masters_association.patches.seed_website_content
 masters_association.patches.remove_membership_workspace
 masters_association.patches.set_member_locations #2026-10-29 retry with short-link and address fixes
+masters_association.patches.migrate_masters_manager

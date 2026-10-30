@@ -85,7 +85,7 @@
  "index_web_pages_for_search": 0,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2026-10-29 12:00:00.000000",
+ "modified": "2026-10-30 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Event",
@@ -123,8 +123,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Membership Reviewer",
-   "share": 1,
+   "role": "Masters Manager",
    "write": 1
   }
  ],

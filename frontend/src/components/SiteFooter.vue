@@ -1,6 +1,9 @@
 <script setup>
 import { site } from "@/data/site"
 import SocialIcon from "./SocialIcon.vue"
+import { useMemberSession } from "@/member/session"
+
+const { session } = useMemberSession()
 
 const quickLinks = [
 	{ label: "About us", route: "/about" },
@@ -100,7 +103,8 @@ const year = new Date().getFullYear()
 				class="container-page flex flex-col gap-2 py-5 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between"
 			>
 				<p>© {{ year }} Masters Association ({{ site.fullName }}). All rights reserved.</p>
-				<a href="/login" class="hover:text-white">Member &amp; admin login</a>
+				<router-link v-if="session.data?.is_logged_in" to="/member/profile" class="hover:text-white">My member profile</router-link>
+				<a v-else href="/login" class="hover:text-white">Member &amp; admin login</a>
 			</div>
 		</div>
 	</footer>

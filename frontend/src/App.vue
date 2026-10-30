@@ -3,10 +3,12 @@ import { FrappeUIProvider } from "frappe-ui"
 import SiteHeader from "@/components/SiteHeader.vue"
 import SiteFooter from "@/components/SiteFooter.vue"
 import WhatsAppButton from "@/components/WhatsAppButton.vue"
+import MemberSessionProvider from "@/components/MemberSessionProvider.vue"
 </script>
 
 <template>
 	<FrappeUIProvider>
+		<MemberSessionProvider>
 		<div class="flex min-h-screen flex-col">
 			<SiteHeader />
 			<main class="flex-1">
@@ -15,5 +17,6 @@ import WhatsAppButton from "@/components/WhatsAppButton.vue"
 			<SiteFooter />
 			<WhatsAppButton />
 		</div>
+		</MemberSessionProvider>
 	</FrappeUIProvider>
 </template>

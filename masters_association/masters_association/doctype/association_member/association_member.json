@@ -47,6 +47,10 @@
   "website_section",
   "show_on_website",
   "show_contact_on_website",
+  "portal_access_section",
+  "user",
+  "portal_enabled",
+  "account_setup_error",
   "internal_review_section",
   "submitted_via_web_form",
   "application_status",
@@ -316,13 +320,47 @@
    "fieldname": "show_contact_on_website",
    "fieldtype": "Check",
    "label": "Show Email and Phone on Website"
+  },
+  {
+   "fieldname": "portal_access_section",
+   "fieldtype": "Section Break",
+   "label": "Portal Access",
+   "permlevel": 1
+  },
+  {
+   "description": "The login account linked to this member. Managed by portal account setup.",
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "no_copy": 1,
+   "options": "User",
+   "permlevel": 1,
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "description": "Allow the linked approved member to use the member portal.",
+   "fieldname": "portal_enabled",
+   "fieldtype": "Check",
+   "label": "Portal Enabled",
+   "permlevel": 1
+  },
+  {
+   "description": "Last portal account setup error. Use Retry Account Setup after correcting the problem.",
+   "fieldname": "account_setup_error",
+   "fieldtype": "Small Text",
+   "label": "Account Setup Error",
+   "no_copy": 1,
+   "permlevel": 1,
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "image_field": "photo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-29 21:30:00.000000",
+ "modified": "2026-10-30 00:00:00.000000",
  "modified_by": "Administrator",
  "module": "Masters Association",
  "name": "Association Member",
@@ -363,8 +401,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Membership Reviewer",
-   "share": 1,
+   "role": "Masters Manager",
    "write": 1
   },
   {
@@ -374,8 +411,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Membership Reviewer",
-   "share": 1,
+   "role": "Masters Manager",
    "write": 1
   }
  ],
@@ -384,5 +420,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
- "title_field": "name1"
+ "title_field": "name1",
+ "track_changes": 1
 }

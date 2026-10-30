@@ -9,6 +9,7 @@ from masters_association.geo import (
 	MAPS_LINK_HELP,
 	coordinates_from_maps_link,
 	is_search_share_link,
+	is_supported_maps_input,
 	point_geojson,
 )
 
@@ -21,14 +22,24 @@ class AssociationMember(Document):
 		self.submitted_via_web_form = 1 if frappe.flags.in_web_form else 0
 
 	def validate(self):
+		from masters_association.member_portal import validate_member_account
+
+		validate_member_account(self)
 		self.validate_google_maps_link()
 		self.set_location()
+
+	def on_update(self):
+		from masters_association.member_portal import member_updated
+
+		member_updated(self)
 
 	def validate_google_maps_link(self):
 		# Only on change, so existing members with such links can still be approved and edited
 		if self.has_value_changed("google_maps_link") and is_search_share_link(self.google_maps_link):
 			message = _("This is a Google Search share link, which doesn't include your location.")
 			frappe.throw(f"{message}<br><br>{_(MAPS_LINK_HELP)}", title=_("Use a Google Maps link"))
+		if self.has_value_changed("google_maps_link") and not is_supported_maps_input(self.google_maps_link):
+			frappe.throw(_("Use an HTTPS Google Maps link or valid latitude, longitude coordinates."))
 
 	def set_location(self):
 		# Resolved during the save rather than in a background job, so the form gets the pin back
